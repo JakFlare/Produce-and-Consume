@@ -6,7 +6,7 @@ class Producer:
         self.items = ['apple','melon','orange','grape','pear']
         self.inventory = [0,0,0,0,0]
     def produce(self,item,num):
-        self.inventory[item] = num
+        self.inventory[item] += num
     def display(self):
         print("-----------------------------------")
         for i in range(len(self.items)):
@@ -64,6 +64,10 @@ for i in range(len(p.items)):
     p.produce(i,10)
 
 c = Consumer()
-c.consume(0,12)
-
-
+j = 0
+for i in range(4):
+    t1 = Thread(target = p.produce(j,10))
+    t2 = Thread(target = c.consume(j,5))
+    t1.start()
+    t2.start()
+    j += 1
